@@ -4,7 +4,7 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.pdfmetrics import stringWidth
 from reportlab.pdfbase.ttfonts import TTFont
 
-pdfmetrics.registerFont(TTFont('Arial','Arial.ttf'))
+pdfmetrics.registerFont(TTFont('Vera','Vera.ttf'))
 wb = openpyxl.load_workbook('data.xlsx')
 sheet = wb.get_sheet_by_name('Request')
 
@@ -27,11 +27,15 @@ def create_report():
         #setting up the documents properties
         c = canvas.Canvas(str(customer_id)+'_'+str(customer_id)+'_'+str(customer_service_id)+'.pdf')
         c.setPageSize((page_width,page_height))
-        c.setFont('Arial',80)
+        c.setFont('Vera',80)
 
-        text_width = stringWidth(report_title/'Arial',80)
-        c.drawString((page_width-page_height)/2,2900,report_title)
+        text_width = stringWidth(report_title,'Vera',60)
+        c.drawString((page_width-page_height)/1000,2900,report_title)
 
+        text = 'This is under the header' + 'date'
+        text_width = stringWidth(text,'Vera',55)
+        c.setFont('Vera',55)
+        c.drawString((page_width-page_height)/1000,2700,report_title)
 
         c.save()
 
